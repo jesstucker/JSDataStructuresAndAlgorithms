@@ -83,6 +83,12 @@ let list = new LinkedList();
 list.append(15);
 list.append(10);
 
+function sleep(ms) {
+    var unixtime_ms = new Date().getTime();
+    while(new Date().getTime() < unixtime_ms + ms) {}
+}
+
+
 
 function DoublyLinkedList() {
 	let Node = function(element) {
@@ -106,64 +112,66 @@ function DoublyLinkedList() {
 				if (!head){
 					head = node;
 					tail = node;
+					console.log("position is 0 and there's no head");
+					sleep(2000);
 				} else {
 					node.next = current;
 					current.prev = node;
 					head = node;
+					console.log("put in position 0, but only later")
+					sleep(2000);
 				}
 			} else if (position === length) {
+
+				console.log("putting in last position")
 				current = tail;
 				current.next = node;
 				node.prev = current;
 				tail = node;
 			} else {
+				
 				// while (index++ < position){
 				for(index; index < position; index++){
+					console.log("INDEX: " + index);
+					console.log("POSITION: " + position);
+					console.log("iterating over list to find middle position, setting prev and next appropriately")	
+					console.log(index + " < " + position + " ? " + (index < position))
 					previous = current;
+					sleep(2000);
+					console.log("PREVIOUS: ")
+					console.log(previous)
+
 					current = current.next;
+					sleep(2000);
+					console.log("CURRENT: ")
+					console.log(current)
+
+
+					sleep(2000);
 				}
+				console.log("setting the nodes' next pointer")
 				node.next = current;
 				previous.next = node;
+				sleep(2000);
 
+				
 				current.prev = node;
+				console.log("setting current.prev")
+				console.log(current.prev)
+				sleep(2000);
+
 				node.prev = previous;
+				console.log("setting node.prev")
+				console.log(node.prev)
+				sleep(2000);
 			}
 			length++;
+			console.log(length)
+			console.log("<---------BREAK--------->")
+			sleep(2000);
 			return true;
 		} else {
 			return false;
-		}
-	};
-
-	this.removeAt = function(position){
-		if (position > -1 && position < length){
-			let current = head,
-			previous,
-			index = 0;
-
-			if (position === 0){
-				head = current.next;
-				if (length === 1){
-					tail = null;
-				} else {
-					head.prev = null;
-				}
-			} else if (position === length-1){
-				current = tail;
-				tail = current.prev;
-				tail.next = null;
-			} else {
-				for(index; index < position; index++){
-					previous = current;
-					current = current.next;
-				}
-				previous.next = current.next;
-				current.next.prev = previous;
-			}
-			length--;
-			return current.element;
-		} else {
-			return null;
 		}
 	};
 
@@ -175,9 +183,6 @@ dll.insert(0, "a")
 dll.insert(0, "b")
 dll.insert(1, "c")
 dll.insert(1, "d")
-dll.insert(2, "c")
-dll.insert(3, "d")
-dll.insert(3, "e")
-dll.removeAt(2)
-
-
+// dll.insert(2, "c")
+// dll.insert(3, "d")
+// dll.insert(3, "e")
