@@ -56,7 +56,6 @@ console.log(dictionary.getItems());
 
 
 
-
 function HashTable(){
 	let table = [];
 
@@ -65,8 +64,21 @@ function HashTable(){
 		console.log(position + ' - ' + key);
 		table[position] = value;
 	};
-	this.remove = function(key,value){};
-	this.get = function(key){};
+	this.remove = function(key){
+		table[loseloseHashCode(key)] = undefined;
+	};
+	this.get = function(key){
+		return table[loseloseHashCode(key)];
+	};
+
+	this.print = function(){
+		for(var i=0; i<table.length; ++i){
+			if(table[i] !== undefined){
+				console.log(i + ": " + table[i]);
+			}
+		}
+	}
+
 
 	let loseloseHashCode = function(key){
 		let hash = 0;
@@ -75,4 +87,37 @@ function HashTable(){
 		}
 		return hash % 37;
 	}
+
+	let ValuePair = function(key,value){
+		this.key = key;
+		this.value = value;
+		this.toString = function(){
+			return '[' + this.key + ' - ' + this.value + ']';
+		}
+		this.put = function(key, value){
+			let position = loseloseHashCode(key);
+			if (table[position]) == undefined {
+				table[position] = new LinkedList();
+			}
+			table[position].append(new ValuePair(key, value));
+		}
+	};
 }
+//meh
+let hash = new HashTable();
+hash.put('Gandalf', 'gandalf@email.com');
+hash.put('John', 'johnsnow@email.com');
+hash.put('Tyrion', 'tyrion@email.com');
+hash.put('Aaron', 'aaron@email.com');
+hash.put('Donnie', 'donnie@email.com');
+hash.put('Ana', 'ana@email.com');
+hash.put('Jonathan', 'jonathan@email.com');
+hash.put('Jamie', 'jamie@email.com');
+hash.put('Sue', 'sue@email.com');
+hash.put('Mindy', 'mindy@email.com');
+hash.put('Paul', 'paul@email.com');
+hash.put('Nathan', 'nathan@email.com');
+
+console.log(hash.get('Gandalf'));
+console.log(hash.get('Loiane'));
+hash.print();
