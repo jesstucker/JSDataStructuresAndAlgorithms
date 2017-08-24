@@ -101,9 +101,9 @@ function HashTable(){
 			}
 			table[position].append(new ValuePair(key, value));
 		}
-	};
+	};//meh
 }
-//meh
+
 let hash = new HashTable();
 hash.put('Gandalf', 'gandalf@email.com');
 hash.put('John', 'johnsnow@email.com');
